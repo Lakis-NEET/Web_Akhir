@@ -14,8 +14,7 @@
 
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -28,19 +27,19 @@
 
 
     <style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
         }
-    }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
     </style>
 
 
@@ -51,22 +50,20 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="navbar-brand" href="#">Hidden brand</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="?page=home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Categories</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Genre</a></li>
@@ -83,47 +80,44 @@
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-light btn-outline-secondary" type="submit">Search</button>
                 </form>
             </div>
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <main class="col-auto">
-            <?php
-                    ini_set("display_errors",1);
+    <main class="container-fluid">
+        <?php
+        ini_set("display_errors", 1);
 
-                    define("GELANG",true);
-                    
-                    //Connect dengan database
-                    require_once "Libraries/connect.php";
-                    require_once "Libraries/fungsi.php";
+        define("GELANG", true);
 
-                    // kalau index page tidak ditemukan
-                    if(isset($_GET['page'])==false){
-                        //page tidak ditemukan
-                        $halaman="pages/main";
-                    }
-                    else{
-                        //jika page ditemukan/ada
-                        $halaman="pages/".$_GET['page'];
+        //Connect dengan database
+        // require_once "Libraries/connect.php";
+        // require_once "Libraries/fungsi.php";
 
-                        //apakah halaman ada atau tidak
-                        if(file_exists($halaman.".php")==false){
-                            //jika file tidak ada diarahkan ke mana
-                            $halaman="pages/404";
-                        }
-                    }
-                    include $halaman.".php";
-                    ?>
-        </main>
-    </div>
+        // kalau index page tidak ditemukan
+        if (isset($_GET['page']) == false) {
+            //page tidak ditemukan
+            $halaman = "pages/main";
+        } else {
+            //jika page ditemukan/ada
+            $halaman = "pages/" . $_GET['page'];
+
+            //apakah halaman ada atau tidak
+            if (file_exists($halaman . ".php") == false) {
+                //jika file tidak ada diarahkan ke mana
+                $halaman = "pages/404";
+            }
+        }
+        include $halaman . ".php";
+        ?>
+    </main>
     </div>
 
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script> -->
     <script src="assets/js/dashboard.js"></script>
 </body>
 
