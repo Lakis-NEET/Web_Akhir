@@ -11,10 +11,6 @@ if (defined('GELANG') === false) {
     # Memasukkannya ke variabel hasil
     $hasil = mysqli_query($connection,$sql);
     $no = 1;
-    // while($row = mysqli_fetch_assoc($hasil))
-    // {
-
-    // }
 ?>
 
 <div class="row pt-3 pb-2 mb-3 border-bottom">
