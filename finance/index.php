@@ -81,8 +81,10 @@
                         <a class="nav-link disabled">Disabled</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" action="" method="get">
+                    <input type="text" name="page" value="filter_genre" hidden>
+                    <input class="form-control me-2" type="text" name="keyword" placeholder="Search"
+                        aria-label="Search">
                     <button class="btn btn-light btn-outline-secondary" type="submit">Search</button>
                 </form>
             </div>

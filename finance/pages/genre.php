@@ -16,12 +16,7 @@ $gen=mysqli_query($connection, "SELECT * FROM genre");
 
 <div class="container-fluid">
     <ul class="d-flex flex-row flex-wrap">
-        <?php while($genres=mysqli_fetch_assoc($gen)){
-            // $current_genre=$genres["genre_name"];
-            // $current=mysqli_query($connection, "SELECT COUNT(* genre_id) FROM comic_genre WHERE genre_id='$current_genre'");
-            // $count=mysqli_fetch_assoc($current);
-            // var_dump (count($count));
-            ?>
+        <?php while($genres=mysqli_fetch_assoc($gen)){ ?>
         <li class="col-6 col-sm-2 col-md-2">
             <a class=""
                 href="?page=filter_genre&&genre_id=<?php echo $genres["genre_name"] ?>"><?php echo $genres["genre_name"] ?>

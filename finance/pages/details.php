@@ -88,8 +88,9 @@ column-gap:20px;
             <div class="d-flex" style="column-gap: 5px; font-size:x-small;">
                 <?php
                 while($genres=mysqli_fetch_assoc($gen)){?>
-                <div class="p-1" style="background-color: #000000;"><?php echo $genres
-        ['genre_id'] ?></div>
+                <a class="p-1" style="background-color: #000000;"
+                    href="?page=filter_genre&&genre_id=<?php echo $genres["genre_id"] ?>"><?php echo $genres
+        ['genre_id'] ?></a>
                 <?php } ?>
             </div>
             <br>
