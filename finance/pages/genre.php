@@ -3,6 +3,9 @@ if(defined('GELANG')===false){
     //tidak memiliki gelang
     die("Anda tidak berhak membuka file ini secara langsung");
 }
+
+$gen=mysqli_query($connection, "SELECT * FROM genre");
+
 ?>
 
 <div class="ms-2 me-auto">
@@ -12,24 +15,18 @@ if(defined('GELANG')===false){
 </div>
 
 <div class="container-fluid">
-    <ul class="d-flex flex-row flex-wrap justify-content-around">
+    <ul class="d-flex flex-row flex-wrap">
+        <?php while($genres=mysqli_fetch_assoc($gen)){
+            // $current_genre=$genres["genre_name"];
+            // $current=mysqli_query($connection, "SELECT COUNT(* genre_id) FROM comic_genre WHERE genre_id='$current_genre'");
+            // $count=mysqli_fetch_assoc($current);
+            // var_dump (count($count));
+            ?>
         <li class="col-6 col-sm-2 col-md-2">
-            <a class="" href="?page=genre/fantasy">Fantasy <span class="badge bg-primary rounded-pill">14</span></a>
+            <a class=""
+                href="?page=filter_genre&&genre_id=<?php echo $genres["genre_name"] ?>"><?php echo $genres["genre_name"] ?>
+                <span class="badge bg-primary rounded-pill">14</span></a>
         </li>
-        <li class="col-6 col-sm-2 col-md-2">
-            <a class="" href="?page=Fantasy">Action <span class="badge bg-primary rounded-pill">14</span></a>
-        </li>
-        <li class="col-6 col-sm-2 col-md-2">
-            <a class="" href="?page=Fantasy">Action <span class="badge bg-primary rounded-pill">14</span></a>
-        </li>
-        <li class="col-6 col-sm-2 col-md-2">
-            <a class="" href="?page=Fantasy">Action <span class="badge bg-primary rounded-pill">14</span></a>
-        </li>
-        <li class="col-6 col-sm-2 col-md-2">
-            <a class="" href="?page=Fantasy">Action <span class="badge bg-primary rounded-pill">14</span></a>
-        </li>
-        <li class="col-6 col-sm-2 col-md-2">
-            <a class="" href="?page=Fantasy">Action <span class="badge bg-primary rounded-pill">14</span></a>
-        </li>
+        <?php } ?>
     </ul>
 </div>
