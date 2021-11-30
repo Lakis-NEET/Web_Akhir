@@ -5,6 +5,17 @@ if (defined('GELANG') === false) {
 }
 ?>
 
+<?php
+    # Mengambil data yang belum dihapus dari database
+    $sql = "SELECT * FROM comic_list WHERE deleted_at is NULL";
+    # Memasukkannya ke variabel hasil
+    $hasil = mysqli_query($connection,$sql);
+    $no = 1;
+    // while($row = mysqli_fetch_assoc($hasil))
+    // {
+
+    // }
+?>
 
 <div class="row pt-3 pb-2 mb-3 border-bottom">
     <h2 class="">Popular Manga</h2>
@@ -14,15 +25,15 @@ if (defined('GELANG') === false) {
     <?php
     for ($i = 0; $i < 6; $i++) {
     ?>
-        <div class="">
-            <div class="card p-2 card-popular card-home">
-                <img src="https://via.placeholder.com/100x150" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="" style="font-size: 0.8rem;">Title</p>
-                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                </div>
+    <div class="">
+        <div class="card p-2 card-popular card-home">
+            <img src="https://via.placeholder.com/100x150" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="" style="font-size: 0.8rem;">Title</p>
+                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
             </div>
         </div>
+    </div>
     <?php } ?>
 </div>
 <div class="row">
@@ -33,18 +44,20 @@ if (defined('GELANG') === false) {
         <div class="row justify-content-center">
             <!-- row-cols-xl-3 row-cols-md-2 row-cols-sm-1 -->
             <?php
-            for ($i = 0; $i < 9; $i++) {
+            while($row = mysqli_fetch_assoc($hasil))
+            {
             ?>
-                <div class="col-auto mb-2">
-                    <div class="card p-2 card-latest">
-                        <img src="https://via.placeholder.com/100x150" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h6 class="fs-6">Title</h6>
-                            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                            <!-- <a href="#" class="btn btn-dark">Read</a> -->
-                        </div>
+            <div class="col-auto mb-2">
+                <div class="card p-2 card-latest">
+                    <img src="<?php echo $row['comic_cover'] ?>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a class="fs-6"
+                            href="?page=details&id=<?php echo $row['comic_id']?>"><?php echo $row['comic_title'] ?></a>
+                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                        <!-- <a href="#" class="btn btn-dark">Read</a> -->
                     </div>
                 </div>
+            </div>
             <?php } ?>
         </div>
     </div>
@@ -64,16 +77,16 @@ if (defined('GELANG') === false) {
                 <?php
                 for ($i = 1; $i < 5; $i++) {
                 ?>
-                    <tr class="border-1">
-                        <th scope="row"><?= $i ?></th>
-                        <td> <img src="https://via.placeholder.com/50x75" class="card-img-top" alt="...">
-                        </td>
-                        <td class="d-flex flex-column border-0">
-                            <p>Title</p>
-                            <p>Genre</p>
-                            <p>Score</p>
-                        </td>
-                    </tr>
+                <tr class="border-1">
+                    <th scope="row"><?= $i ?></th>
+                    <td> <img src="https://via.placeholder.com/50x75" class="card-img-top" alt="...">
+                    </td>
+                    <td class="d-flex flex-column border-0">
+                        <p>Title</p>
+                        <p>Genre</p>
+                        <p>Score</p>
+                    </td>
+                </tr>
                 <?php } ?>
 
             </tbody>
