@@ -5,21 +5,17 @@ if(defined('GELANG')===false){
 }
 
 //query database
-$nm_modul = $_POST['nm_modul'];
+$author_name = $_POST['author'];
 
 //menyiapkan data tambahan
 $now=date("Y-m-d H:i:s");
 
 //data yang akan disimpan
-$data = [
-    'nm_modul'              => $nm_modul,
-    'created_at'            => $now,
-    'updated_at'            => $now
-];
+$data = ['author_name'              => $author_name];
 
 //Insert data
-insert_data($connection, "modul", $data);
+insert_data($connection, "author", $data);
 
-redirect('?page=modul');
+redirect('?page=add_comic');
 
 ?>

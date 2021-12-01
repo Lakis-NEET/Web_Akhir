@@ -27,38 +27,38 @@
 
 
     <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
         }
+    }
 
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
 
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
 
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
 
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
     </style>
 
 
@@ -85,7 +85,8 @@
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Categories</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="?page=genre">Genre</a></li>
@@ -93,12 +94,13 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="?page=add_comic">Add</a>
+                        <a class="nav-link active" aria-current="page" href="?page=add_author">Add</a>
                     </li>
                 </ul>
                 <form class="d-flex" action="" method="get">
                     <input type="text" name="page" value="filter_genre" hidden>
-                    <input class="form-control me-2" type="text" name="keyword" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" type="text" name="keyword" placeholder="Search"
+                        aria-label="Search">
                     <button class="btn btn-light btn-outline-secondary" type="submit">Search</button>
                 </form>
             </div>
