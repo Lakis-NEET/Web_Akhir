@@ -6,27 +6,26 @@ if (defined('GELANG') === false) {
 $id;
 if (isset($_GET['id'])) {
     //page tidak ditemukan
-    $id=$_GET['id'];
+    $id = $_GET['id'];
 }
 
 
 # Mengambil data yang belum dihapus dari database
 $sql = "SELECT * FROM comic_list WHERE comic_id = '$id'";
 # Memasukkannya ke variabel hasil
-$hasil = mysqli_query($connection,$sql);
+$hasil = mysqli_query($connection, $sql);
 $no = 1;
 $comic = mysqli_fetch_assoc($hasil);
-$gen=mysqli_query($connection, "SELECT * FROM comic_genre WHERE comic_id = '$id'");
-$thor_id=$comic["comic_author"];
+$gen = mysqli_query($connection, "SELECT * FROM comic_genre WHERE comic_id = '$id'");
+$thor_id = $comic["comic_author"];
 $thor = mysqli_query($connection, "SELECT * FROM author WHERE author_id = '$thor_id'");
-$author=mysqli_fetch_assoc($thor);
+$author = mysqli_fetch_assoc($thor);
 $author["author_name"];
 
 $files = count(glob("assets/comic_read/$id/*", GLOB_ONLYDIR));
 ?>
 
-<img src="<?php echo $comic['comic_cover'] ?>" alt=""
-    style="position: absolute; z-index:-99; top:0;left:0;filter: blur(8px) brightness(50%); width: 100%;">
+<img src="<?php echo $comic['comic_cover'] ?>" alt="" style="position: absolute; z-index:-99; top:0;left:0;filter: blur(8px) brightness(50%); width: 100%;">
 <!-- <div style="width: 100%; height:100%; position:absolute;left:0;top:0; z-index:-98;" class="bg-dark"></div> -->
 <div class="text-light" style="
 display: flex;
@@ -42,8 +41,7 @@ column-gap:20px;
     row-gap:10px;
     ">
         <div>
-            <img src="<?php echo $comic
-        ['comic_cover'] ?>" alt="" style="object-fit: cover;width:100%; height:auto;">
+            <img src="<?php echo $comic['comic_cover'] ?>" alt="" style="object-fit: cover;width:100%; height:auto;">
         </div>
         <button class="btn btn-danger">Bookmark</button>
         <div class="text-white fw-bold text-center">100 people bookmarked</div>
@@ -56,12 +54,12 @@ column-gap:20px;
         <div class="p-1 bg-dark rounded-1">
             <div class="d-flex justify-content-between mb-1 text-secondary" style="font-size:x-small;">
                 <div>Status</div>
-                <div><?php if($comic['comic_status']){
-                    echo "Ongoing";
-                } else{
-                    echo "Completed";
-                }
-                ?></div>
+                <div><?php if ($comic['comic_status']) {
+                            echo "Ongoing";
+                        } else {
+                            echo "Completed";
+                        }
+                        ?></div>
             </div>
             <div class="d-flex justify-content-between mb-1 text-secondary" style="font-size:x-small;">
                 <div>Author</div>
@@ -83,24 +81,20 @@ column-gap:20px;
     </div>
     <div class="" style="width: 75%;">
         <div class="bg-dark text-white p-2 mb-4 rounded-1 shadow">
-            <div style="font-size:large;"><strong><?php echo $comic
-        ['comic_title'] ?></strong></div>
+            <div style="font-size:large;"><strong><?php echo $comic['comic_title'] ?></strong></div>
             <div style="font-size: x-small; color:gray;">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 Ipsum, dele.</div>
             <div class="d-flex" style="column-gap: 5px; font-size:x-small;">
                 <?php
-                while($genres=mysqli_fetch_assoc($gen)){?>
-                <a class="p-1" style="background-color: #000000;"
-                    href="?page=filter_genre&&genre_id=<?php echo $genres["genre_id"] ?>"><?php echo $genres
-        ['genre_id'] ?></a>
+                while ($genres = mysqli_fetch_assoc($gen)) { ?>
+                    <a class="p-1 text-decoration-none text-light rounded-1" style=" background-color: #000000;" href="?page=filter_genre&&genre_id=<?php echo $genres["genre_id"] ?>"><?php echo $genres['genre_id'] ?></a>
                 <?php } ?>
             </div>
             <br>
             <div>
                 <div style="font-size: x-small; color:white; font-weight:500;">Synopsis</div>
                 <div style="font-size: x-small; color:#eaeaea; font-weight:100;">
-                    <?php echo $comic
-                ['comic_description'] ?>
+                    <?php echo $comic['comic_description'] ?>
                 </div>
             </div>
         </div>
@@ -110,6 +104,7 @@ column-gap:20px;
                 <?php
                 for ($i = 1; $i <= $files; $i++) {
                 ?>
+
                 <div style=" width:9rem; border-radius:0.2em;" class="p-1 mb-2 border border-1 border-light">
                     <a style="font-size: xx-small;"
                         href="?page=read_comic&&id=<?php echo $id ?>&&ch=<?php echo $i ?>">Chapter

@@ -27,25 +27,45 @@
 
 
     <style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
         }
-    }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="assets/css/dashboard.css" rel="stylesheet">
     <link href="assets/css/home.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="global.css"> -->
 </head>
 
 <body>
@@ -65,8 +85,7 @@
                         <a class="nav-link" href="#">Link</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Categories</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="?page=genre">Genre</a></li>
@@ -79,8 +98,7 @@
                 </ul>
                 <form class="d-flex" action="" method="get">
                     <input type="text" name="page" value="filter_genre" hidden>
-                    <input class="form-control me-2" type="text" name="keyword" placeholder="Search"
-                        aria-label="Search">
+                    <input class="form-control me-2" type="text" name="keyword" placeholder="Search" aria-label="Search">
                     <button class="btn btn-light btn-outline-secondary" type="submit">Search</button>
                 </form>
             </div>
@@ -94,8 +112,8 @@
         define("GELANG", true);
 
         //Connect dengan database
-         require_once "Libraries/connect.php";
-         require_once "Libraries/fungsi.php";
+        require_once "Libraries/connect.php";
+        require_once "Libraries/fungsi.php";
 
         // kalau index page tidak ditemukan
         if (isset($_GET['page']) == false) {
