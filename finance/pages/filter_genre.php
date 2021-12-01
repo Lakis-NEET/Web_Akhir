@@ -6,7 +6,6 @@ if(defined('GELANG')===false){
 
 $comic_array=[];
 if (isset($_GET['genre_id'])) {
-    //page tidak ditemukan
     include 'genre.php';
     $id=$_GET['genre_id'];
     $gen=mysqli_query($connection, "SELECT * FROM comic_genre WHERE genre_id = '$id'");   
@@ -21,6 +20,14 @@ else if (isset($_GET['keyword'])) {
     $comic_sql=mysqli_query($connection,"SELECT * FROM comic_list WHERE comic_title LIKE '%$name%'");
     while ($gan=mysqli_fetch_assoc($comic_sql)) {
         array_push($comic_array, $gan);
+    }
+}
+else if(isset($_GET['author_id'])){
+    include 'author.php';
+    $author=$_GET['author_id'];
+    $author_sql=mysqli_query($connection,"SELECT * FROM comic_list WHERE comic_author ='$author'");
+    while ($row=mysqli_fetch_assoc($author_sql)){
+        array_push($comic_array, $row);
     }
 }
 ?>
