@@ -21,6 +21,8 @@ $thor_id=$comic["comic_author"];
 $thor = mysqli_query($connection, "SELECT * FROM author WHERE author_id = '$thor_id'");
 $author=mysqli_fetch_assoc($thor);
 $author["author_name"];
+
+$files = count(glob("assets/comic_read/$id/*", GLOB_ONLYDIR));
 ?>
 
 <img src="<?php echo $comic['comic_cover'] ?>" alt=""
@@ -106,10 +108,12 @@ column-gap:20px;
             <div class=" bg-danger p-2">Chapters</div>
             <div class="d-flex p-2 flex-wrap justify-content-around" style="height: 12rem; overflow:auto">
                 <?php
-                for ($i = 0; $i < 15; $i++) {
+                for ($i = 1; $i <= $files; $i++) {
                 ?>
                 <div style=" width:9rem; border-radius:0.2em;" class="p-1 mb-2 border border-1 border-light">
-                    <div style="font-size: xx-small;">Chapter 121</div>
+                    <a style="font-size: xx-small;"
+                        href="?page=read_comic&&id=<?php echo $id ?>&&ch=<?php echo $i ?>">Chapter
+                        <?php echo $i ?></a>
                     <div style="font-size: xx-small; color:gray">November 27, 2021</div>
                 </div>
                 <?php } ?>
