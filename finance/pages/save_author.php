@@ -5,21 +5,17 @@ if(defined('GELANG')===false){
 }
 
 //query database
-$nm_role = $_POST['nm_role'];
+$author_name = $_POST['author'];
 
 //menyiapkan data tambahan
 $now=date("Y-m-d H:i:s");
 
 //data yang akan disimpan
-$data = [
-    'nm_role'              => $nm_role,
-    'created_at'            => $now,
-    'updated_at'            => $now
-];
+$data = ['author_name'              => $author_name];
 
 //Insert data
-insert_data($connection, "role", $data);
+insert_data($connection, "author", $data);
 
-redirect('?page=list_role');
+redirect('?page=add_comic');
 
 ?>

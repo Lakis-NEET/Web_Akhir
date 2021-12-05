@@ -6,15 +6,15 @@ if(defined('GELANG')===false){
 ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Form Tambah Role</h1>
+    <h1 class="h2">Form Add Author</h1>
 </div>
 
-<form action="?page=save_role" method="post">
+<form action="?page=save_author" method="post">
     <table class="table">
         <tr>
-            <td width="20%">Nama Role</td>
+            <td width="20%">Author Name</td>
             <td width="30px">:</td>
-            <td><input type="text" name="nm_role" class="form-control" /></td>
+            <td><input type="text" name="author" class="form-control" /></td>
         </tr>
         <tr>
             <td></td>

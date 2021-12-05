@@ -1,0 +1,35 @@
+.card-latest {
+  width: 8rem;
+}
+
+/* @media (max-width: 576px) {
+  .card-latest {
+    width: 4rem;
+  }
+} */
+@media (max-width: 768px) {
+  .card-latest {
+    width: 4rem;
+  }
+}
+
+.card-popular {
+  width: 8rem;
+}
+
+/* @media (max-width: 576px) {
+  .card-popular {
+    width: 4rem;
+  }
+} */
+/* @media (max-width: 1213px) {
+  .card-popular {
+    width: 6rem;
+  }
+}
+
+@media (max-width: 921px) {
+  .card-popular {
+    width: 4rem;
+  }
+} */
