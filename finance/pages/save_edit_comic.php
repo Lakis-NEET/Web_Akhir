@@ -4,13 +4,18 @@ if(defined('GELANG')===false){
     die("Anda tidak berhak membuka file ini secara langsung");
 }
 
+$id=$_POST['id'];
+$sql = "SELECT * FROM comic_list WHERE comic_id = $id";
+$result = mysqli_query($connection,$sql);
+$row = mysqli_fetch_assoc($result);
+mysqli_query($connection, "DELETE FROM comic_genre WHERE comic_id = $id");
 //query database
 $comic_title = $_POST['title'];
 $comic_description = $_POST['description'];
 $comic_author = $_POST['author'];
 $comic_genre = $_POST['genre'];
-//$comic_cover = $_POST['cover'];
 $comic_release = $_POST['release_date'];
+$comic_status = $_POST['status'];
 
 //menyiapkan data tambahan
 $now=date("Y-m-d H:i:s");
@@ -18,22 +23,34 @@ $now=date("Y-m-d H:i:s");
 //data yang akan disimpan
 $data = [
     'comic_title'           => $comic_title,
+    'comic_cover'           => "",
+    'comic_description'     => $comic_description,
+    'comic_author'          => $comic_author,
+    'comic_release'         => $comic_release,
+    'edited_at'             => $now,
+    'comic_status'          => $comic_status
+];
+
+if(!file_exists($_FILES['cover']['tmp_name']) || !is_uploaded_file($_FILES['cover']['tmp_name'])) {
+    unset($data['comic_cover']);
+}else{
+    unlink($row['comic_cover']);
+$data = [
+    'comic_title'           => $comic_title,
     'comic_cover'           => upload(),
     'comic_description'     => $comic_description,
     'comic_author'          => $comic_author,
     'comic_release'         => $comic_release,
-    'added_at'              => $now,
     'edited_at'             => $now,
-    'comic_status'          => "1"
-];
-
+    'comic_status'          => $comic_status
+];}
 //Insert data
-insert_data($connection, "comic_list", $data);
+update_data($connection, "comic_list", $data,$id,'comic_id');
 $comid=mysqli_query($connection, "SELECT MAX(comic_id) FROM comic_list");
 $comic_id=mysqli_fetch_assoc($comid);
 foreach ($comic_genre as $value) {
     $data_genre=[
-        'comic_id'  => $comic_id['MAX(comic_id)'],
+        'comic_id'  => $id,
         'genre_id'  => $value
     ];
     insert_data($connection, "comic_genre", $data_genre);
@@ -89,5 +106,7 @@ if (file_exists($target_file)) {
   }
   return false;
 }
+
+die;
 redirect('?page=home');
 ?>

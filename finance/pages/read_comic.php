@@ -23,5 +23,8 @@ foreach($files as $file) { ?>
 <div class="container-fluid">
     <img src="<?php echo $file ?>" alt="">
 </div>
+<?php } 
 
-<?php } ?>
+?>
+
+<a href="?page=details&&id=<?php echo $id ?>">Kembali</a>
