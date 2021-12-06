@@ -9,6 +9,25 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
+$user_id=$_SESSION['id'];
+$book="SELECT * FROM bookmarks WHERE user_id = $user_id AND comic_id = $id";
+$result2=mysqli_query($connection, $book);
+$ismarked;
+$isbooked="Bookmark";
+if(mysqli_num_rows($result2)==1){
+    $ismarked=1;
+    $isbooked="Remove";
+}
+else{
+    $ismarked=0;
+}
+$jml=0;
+$users=mysqli_query($connection,"SELECT comic_id FROM bookmarks WHERE comic_id = $id");
+while($fa=mysqli_fetch_assoc($users)){
+    $jml+=1;
+}
+
+
 
 # Mengambil data yang belum dihapus dari database
 $sql = "SELECT * FROM comic_list WHERE comic_id = '$id'";
@@ -22,12 +41,14 @@ $thor = mysqli_query($connection, "SELECT * FROM author WHERE author_id = '$thor
 $author = mysqli_fetch_assoc($thor);
 $author["author_name"];
 
+$sql5=mysqli_query($connection, "SELECT * FROM chapter WHERE comic_id= $id");
+
 $files =glob("assets/comic_read/$id/*", GLOB_ONLYDIR);
 ?>
-
+<?php if($_SESSION['login']==1){ ?>
 <a href="?page=edit_comic&&id=<?php echo $id ?>">Edit</a>
 <a href="?page=delete_comic&&id=<?php echo $id ?>&&gambar=<?php echo $comic['comic_cover'] ?>">Delete</a>
-
+<?php } ?>
 <img src="<?php echo $comic['comic_cover'] ?>" alt=""
     style="position: absolute; z-index:-99; top:0;left:0;filter: blur(8px) brightness(50%); width: 100%;">
 <!-- <div style="width: 100%; height:100%; position:absolute;left:0;top:0; z-index:-98;" class="bg-dark"></div> -->
@@ -37,7 +58,6 @@ flex-direction: row;
 padding: 10%;
 column-gap:20px;
 ">
-
     <div style="
     display: flex;
     flex-direction: column;
@@ -47,8 +67,11 @@ column-gap:20px;
         <div>
             <img src="<?php echo $comic['comic_cover'] ?>" alt="" style="object-fit: cover;width:100%; height:auto;">
         </div>
-        <button class="btn btn-danger">Bookmark</button>
-        <div class="text-white fw-bold text-center">100 people bookmarked</div>
+        <form action="?page=save_bookmark&&id=<?php echo $id ?>" method="post">
+            <input type="text" name="ismarked" value="<?php echo $ismarked ?>" hidden>
+            <button type="submit" class="btn btn-danger" name="submit"><?php echo $isbooked ?></button>
+        </form>
+        <div class="text-white fw-bold text-center"><?php echo $jml ?> people bookmarked</div>
         <div class="p-1 bg-dark rounded-1">
             <div class="d-flex justify-content-between mb-1 text-secondary" style="font-size:x-small;">
                 <div>Score</div>
@@ -105,21 +128,25 @@ column-gap:20px;
         </div>
         <div class="bg-dark text-white rounded-1 shadow">
             <div class=" bg-danger p-2">Chapters</div>
+            <?php if($_SESSION['login']==1){ ?>
             <div><a href="?page=add_chapter&&id=<?php echo $id ?>">Tambah Chapter</a></div>
+            <?php } ?>
             <div class="d-flex p-2 flex-wrap justify-content-around" style="height: 12rem; overflow:auto">
                 <?php
-                foreach ($files as $key => $value) {
-                    $value=str_replace("assets/comic_read/$id/ch", '', $value);
+                while ($chap=mysqli_fetch_assoc($sql5)) {
+                    $value=str_replace("assets/comic_read/$id/ch", '', $chap['chapter_id']);  
                 ?>
                 <div style=" width:9rem; border-radius:0.2em;" class="p-1 mb-2 border border-1 border-light">
                     <a style="font-size: xx-small;"
                         href="?page=read_comic&&id=<?php echo $id ?>&&ch=<?php echo $value ?>">Chapter
                         <?php echo $value ?></a>
-                    <div style="font-size: xx-small; color:gray">November 27, 2021</div>
+                    <div style="font-size: xx-small; color:gray"><?php echo $chap['added_at'] ?></div>
+                    <?php if($_SESSION['login']==1){ ?>
                     <div>
                         <a href="?page=delete_chapter&&id=<?php echo $id ?>&&chapter=<?php echo $value ?>">Delete
                             Chapter</a>
                     </div>
+                    <?php } ?>
                 </div>
                 <?php } ?>
             </div>
