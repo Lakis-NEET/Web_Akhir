@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
 
@@ -92,7 +93,7 @@
                         <a class="nav-link active" aria-current="page" href="?page=home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="?page=bookmarks">Bookmarks</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -102,10 +103,17 @@
                             <li><a class="dropdown-item" href="?page=author">Author</a></li>
                         </ul>
                     </li>
+                    <?php if($_SESSION['login']==1){ ?>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="?page=add_author">Add</a>
                     </li>
+                    <?php }?>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="?page=login">Login</a>
+                        <a class="nav-link active" aria-current="page" href="?page=sign_up">Sign Up</a>
+                    </li>
                 </ul>
+                <p class="text-white"><?php echo $_SESSION['username']; ?></p>
                 <form class="d-flex" action="" method="get">
                     <input type="text" name="page" value="filter_genre" hidden>
                     <input class="form-control me-2" type="text" name="keyword" placeholder="Search" aria-label="Search">
@@ -124,7 +132,7 @@
         //Connect dengan database
         require_once "Libraries/connect.php";
         require_once "Libraries/fungsi.php";
-
+        
         // kalau index page tidak ditemukan
         if (isset($_GET['page']) == false) {
             //page tidak ditemukan

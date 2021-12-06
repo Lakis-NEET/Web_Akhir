@@ -3,6 +3,9 @@ if(defined('GELANG')===false){
     //tidak memiliki gelang
     die("Anda tidak berhak membuka file ini secara langsung");
 }
+if($_SESSION['login']!=1){
+  die("Anda Bukan Admin");
+}
 
 $id=$_POST['id'];
 $sql = "SELECT * FROM comic_list WHERE comic_id = $id";

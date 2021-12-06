@@ -3,6 +3,9 @@ if(defined('GELANG')===false){
     //tidak memiliki gelang
     die("Anda tidak berhak membuka file ini secara langsung");
 }
+if($_SESSION['login']!=1){
+    die("Anda Bukan Admin");
+}
 
 $aut=mysqli_query($connection, "SELECT * FROM author");
 $gen=mysqli_query($connection, "SELECT * FROM genre");

@@ -3,6 +3,10 @@ if(defined('GELANG')===false){
     //tidak memiliki gelang
     die("Anda tidak berhak membuka file ini secara langsung");
 }
+if($_SESSION['login']!=1){
+    die("Anda Bukan Admin");
+}
+
 ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

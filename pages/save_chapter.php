@@ -3,9 +3,20 @@ if(defined('GELANG')===false){
     //tidak memiliki gelang
     die("Anda tidak berhak membuka file ini secara langsung");
 }
-
+if($_SESSION['login']!=1){
+  die("Anda Bukan Admin");
+}
 $id=$_POST['id'];
 $ch=$_POST['chapter'];
+$now=date("Y-m-d H:i:s");
+
+$data = [
+  'comic_id'           => $id,
+  'chapter_id'         => $ch,
+  'added_at'           => $now
+];
+insert_data($connection, "chapter", $data);
+
 $halaman=$_FILES["gambar"]["tmp_name"];
 $target_dir="assets/comic_read/$id/ch$ch/";
 if(!file_exists($target_dir)){
