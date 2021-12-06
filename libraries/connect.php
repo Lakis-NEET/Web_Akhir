@@ -4,13 +4,11 @@ $username       = "root";
 $password       = "";
 $database       = "comic";
 
-$connection = mysqli_connect($host,$username,$password,$database);
+$connection = mysqli_connect($host, $username, $password, $database);
 
 // Apakah berhasil?
-if($connection==false)
-{
-    die("Error connecting to MySQL: ".mysqli_connect_error());
+if ($connection == false) {
+    die("Error connecting to MySQL: " . mysqli_connect_error());
 }
 
-echo "Connection Success!";
-?>
+// echo "Connection Success!";
