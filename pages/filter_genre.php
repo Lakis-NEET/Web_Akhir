@@ -41,7 +41,7 @@ else if(isset($_GET['author_id'])){
 
 
 <div class="row pt-3 pb-2 mb-3 border-bottom">
-    <h2 class=""><?php echo $result_text?></h2>
+    <h2><a class="text-white" style="text-decoration:none;"><?php echo $result_text ?></a></h2>
 </div>
 <div class="d-flex flex-row flex-wrap justify-content-around">
     <!-- row-cols-xl-3 row-cols-md-2 row-cols-sm-1 -->

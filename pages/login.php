@@ -15,6 +15,7 @@ if (isset($_POST['submit'])){
             $_SESSION['login']=$row['user_role'];
             $_SESSION['username']=$row['user_name'];
             $_SESSION['id']=$row['user_id'];
+            redirect("?page=home");
         }
         else{
         echo "password salah";
@@ -26,16 +27,27 @@ if (isset($_POST['submit'])){
 
 ?>
 
-<form action="" method="post">
-    <div>
-        <label>Email</label>
-        <label>:</label>
-        <input type="email" name="email" />
-    </div>
-    <div>
-        <label>Password</label>
-        <label>:</label>
-        <input type="password" name="password" />
-    </div>
-    <input type="submit" value="Log in" name="submit" />
-</form>
+<div class="container">
+    <form action="" method="post">
+        <div class="row">
+            <div class="col-25">
+                <label>Email</label>
+            </div>
+            <div class="col-75">
+                <input type="email" name="email" placeholder="Input Your Email..." />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label>Password</label>
+            </div>
+            <div class="col-75">
+                <input type="password" name="password" placeholder="Input Your Password..." />
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <input type="submit" value="Log in" name="submit" />
+        </div>
+    </form>
+</div>

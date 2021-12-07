@@ -9,21 +9,32 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
-$user_id = $_SESSION['id'];
-$book = "SELECT * FROM bookmarks WHERE user_id = $user_id AND comic_id = $id";
-$result2 = mysqli_query($connection, $book);
-$ismarked;
-$isbooked = "Bookmark";
-if (mysqli_num_rows($result2) == 1) {
-    $ismarked = 1;
-    $isbooked = "Remove";
-} else {
-    $ismarked = 0;
+
+if(!isset($_SESSION['login'])){
+    $_SESSION['login']=3;
 }
-$jml = 0;
-$users = mysqli_query($connection, "SELECT comic_id FROM bookmarks WHERE comic_id = $id");
-while ($fa = mysqli_fetch_assoc($users)) {
-    $jml += 1;
+if($_SESSION['login']==3){
+    $_SESSION['id']="Blocked";
+    $_SESSION['username']="Blocked";
+}
+$user_id=$_SESSION['id'];
+$isbooked="Bookmark";
+if($user_id!="Blocked"){
+$book="SELECT * FROM bookmarks WHERE user_id = $user_id AND comic_id = $id";
+$result2=mysqli_query($connection, $book);
+$ismarked;
+if(mysqli_num_rows($result2)==1){
+    $ismarked=1;
+    $isbooked="Remove";
+}
+else{
+    $ismarked=0;
+}
+}
+$jml=0;
+$users=mysqli_query($connection,"SELECT comic_id FROM bookmarks WHERE comic_id = $id");
+while($fa=mysqli_fetch_assoc($users)){
+    $jml+=1;
 }
 
 
@@ -115,6 +126,7 @@ column-gap:20px;
                 <?php
                 while ($genres = mysqli_fetch_assoc($gen)) { ?>
                     <a class="p-1 text-decoration-none text-light rounded-1 bg-danger style=" background-color: #000000;" href="?page=filter_genre&&genre_id=<?php echo $genres["genre_id"] ?>"><?php echo $genres['genre_id'] ?></a>
+
                 <?php } ?>
             </div>
             <br>
@@ -128,8 +140,10 @@ column-gap:20px;
         <div class="bg-dark text-white rounded-1 shadow">
             <div class="d-flex bg-danger fs-5 justify-content-between px-2 py-1">
                 <div>Chapters</div>
-                <?php if ($_SESSION['login'] == 1) { ?>
-                    <div><a href="?page=add_chapter&&id=<?php echo $id ?>"><i class="bi bi-plus-circle-fill fs-5 text-white"></i></a></div>
+
+                <?php if($_SESSION['login']==1){ ?>
+                <div><a href="?page=add_chapter&&id=<?php echo $id ?>"><i
+                            class="bi bi-plus-circle-fill fs-5 text-light"></i></a></div>
                 <?php } ?>
             </div>
 
@@ -138,9 +152,11 @@ column-gap:20px;
                 <?php
                 while ($chap = mysqli_fetch_assoc($sql5)) {
                     $value = str_replace("assets/comic_read/$id/ch", '', $chap['chapter_id']);
+
                 ?>
-                    <div style=" width:9rem; border-radius:0.2em; height:3.5rem;" class="d-flex p-1 mb-2 border border-1 border-light">
-                        <div style="width: 90%;">
+                <div style=" width:9rem; border-radius:0.2em; height:3.5rem;"
+                    class="d-flex p-1 mb-2 border border-1 border-light">
+                    <div style="width: 90%;">
 
                             <a style="font-size: xx-small;" href="?page=read_comic&&id=<?php echo $id ?>&&ch=<?php echo $value ?>">Chapter
                                 <?php echo $value ?></a>
@@ -152,6 +168,13 @@ column-gap:20px;
                             </div>
                         <?php } ?>
                     </div>
+                    <?php if($_SESSION['login']==1){ ?>
+                    <div>
+                        <a href="?page=delete_chapter&&id=<?php echo $id ?>&&chapter=<?php echo $value ?>"><i
+                                class="bi bi-trash-fill"></i></a>
+                    </div>
+                    <?php } ?>
+                </div>
                 <?php } ?>
             </div>
         </div>

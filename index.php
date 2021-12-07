@@ -1,4 +1,12 @@
-<?php session_start(); ?>
+<?php session_start(); 
+        if(!isset($_SESSION['login'])){
+            $_SESSION['login']=3;
+        }
+        if($_SESSION['login']==3){
+            $_SESSION['id']="Blocked";
+            $_SESSION['username']="Blocked";
+        }
+?>
 <!doctype html>
 <html lang="en">
 
@@ -81,21 +89,54 @@
         a:hover {
             color: white;
         }
+
+
+    * {
+        font-family: 'Roboto', sans-serif !important;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    body {
+        background-color: #000000;
+    }
+
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="assets/css/dashboard.css" rel="stylesheet">
     <link href="assets/css/home.css" rel="stylesheet">
-    <link href="assets/css/details.css" rel="stylesheet">
+
+    <link href="assets/css/form.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="global.css"> -->
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a href="#" class="text-decoration-none"><i class="bi bi-file-earmark-image fs-2 text-white">UnLOad</i></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+
+            <a href="#" class="text-decoration-none"><i
+                    class="bi bi-file-earmark-image fs-2 text-white">UnLOad&nbsp;&nbsp;</i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -114,13 +155,19 @@
                             <li><a class="dropdown-item" href="?page=author">Author</a></li>
                         </ul>
                     </li>
-                    <?php if ($_SESSION['login'] == 1) { ?>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="?page=add_author">Add</a>
-                        </li>
-                    <?php } ?>
+
+                    <?php if($_SESSION['login']==1){ ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Add</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" aria-current="page" href="?page=add_author">Author</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="?page=add_comic">Comic</a></li>
+                        </ul>
+                    </li>
+                    <?php }?>
                 </ul>
-                <p class="text-white"><?php echo $_SESSION['username']; ?></p>
                 <div class="search-container">
                     <form class="d-flex" action="" method="get">
                         <input type="text" name="page" value="filter_genre" hidden>
@@ -131,18 +178,32 @@
             </div>
         </div>
     </nav>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <div class="container-fluid">
             <ul class="navbar-nav me-auto mb-2">
                 <li class="nav-item">
                 </li>
             </ul>
+            <?php if($_SESSION['login']!=3){ ?>
+            <div class="btn-group dropstart">
+                <a class="dropdown-toggle fs-5 text-white" style="text-decoration:none" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle"></i>
+                    <?php echo $_SESSION['username'];?>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="nav-link active text-white fs-6" aria-current="page" href="?page=logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <?php }else{ ?>
             <span>
                 <a class="nav-link active text-white" aria-current="page" href="?page=login">Login</a>
             </span>
             <span>
                 <a class="nav-link active text-white" aria-current="page" href="?page=sign_up">Sign Up</a>
             </span>
+            <?php } ?>
         </div>
     </nav>
 
@@ -159,7 +220,7 @@
         // kalau index page tidak ditemukan
         if (isset($_GET['page']) == false) {
             //page tidak ditemukan
-            $halaman = "pages/main";
+            $halaman = "pages/home";
         } else {
             //jika page ditemukan/ada
             $halaman = "pages/" . $_GET['page'];
