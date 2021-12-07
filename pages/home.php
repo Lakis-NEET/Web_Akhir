@@ -6,11 +6,11 @@ if (defined('GELANG') === false) {
 ?>
 
 <?php
-    # Mengambil data yang belum dihapus dari database
-    $sql = "SELECT * FROM comic_list WHERE deleted_at is NULL";
-    # Memasukkannya ke variabel hasil
-    $hasil = mysqli_query($connection,$sql);
-    $no = 1;
+# Mengambil data yang belum dihapus dari database
+$sql = "SELECT * FROM comic_list WHERE deleted_at is NULL";
+# Memasukkannya ke variabel hasil
+$hasil = mysqli_query($connection, $sql);
+$no = 1;
 ?>
 
 <div class="row pt-3 pb-2 mb-3 border-bottom">
@@ -21,73 +21,40 @@ if (defined('GELANG') === false) {
     <?php
     for ($i = 0; $i < 6; $i++) {
     ?>
-    <div class="">
-        <div class="card p-2 card-popular card-home">
-            <img src="https://via.placeholder.com/100x150" class="card-img-top" alt="...">
-            <div class="card-body">
-                <p class="" style="font-size: 0.8rem;">Title</p>
-                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+        <div class="">
+            <div class="card p-2 card-popular card-home">
+                <img src="https://via.placeholder.com/100x150" class="card-img-top" alt="...">
+                <div class="">
+                    <a>Title</a>
+                    <div>8 Bookmarks</div>
+                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                </div>
             </div>
         </div>
-    </div>
     <?php } ?>
 </div>
 <div class="row">
-    <div class="col-8">
+    <div class="">
         <div class="row pt-3 pb-2 mb-3 border-bottom">
             <h2 class="">Latest Manga</h2>
         </div>
         <div class="row justify-content-center">
             <!-- row-cols-xl-3 row-cols-md-2 row-cols-sm-1 -->
             <?php
-            while($row = mysqli_fetch_assoc($hasil))
-            {
+            while ($row = mysqli_fetch_assoc($hasil)) {
             ?>
-            <div class="col-auto mb-2">
-                <div class="card p-2 card-latest">
-                    <img src="<?php echo $row['comic_cover'] ?>" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <a class="fs-6"
-                            href="?page=details&id=<?php echo $row['comic_id']?>"><?php echo $row['comic_title'] ?></a>
-                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                        <!-- <a href="#" class="btn btn-dark">Read</a> -->
+                <div class="col-auto mb-2">
+                    <div class="card p-1 card-latest" style="height: 16rem;overflow:hidden;">
+                        <img src="<?php echo $row['comic_cover'] ?>" class="card-img-top border border-1" alt="...">
+                        <div class="">
+                            <a class="" href="?page=details&id=<?php echo $row['comic_id'] ?>"><?php echo $row['comic_title'] ?></a>
+                            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                            <!-- <a href="#" class="btn btn-dark">Read</a> -->
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php } ?>
         </div>
-    </div>
-    <div class="col-4">
-        <div class="row pt-3 pb-2 mb-3 border-bottom">
-            <h2 class="">Top Manga</h2>
-        </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                for ($i = 1; $i < 5; $i++) {
-                ?>
-                <tr class="border-1">
-                    <th scope="row"><?= $i ?></th>
-                    <td> <img src="https://via.placeholder.com/50x75" class="card-img-top" alt="...">
-                    </td>
-                    <td class="d-flex flex-column border-0">
-                        <p>Title</p>
-                        <p>Genre</p>
-                        <p>Score</p>
-                    </td>
-                </tr>
-                <?php } ?>
-
-            </tbody>
-        </table>
-
     </div>
 </div>
 

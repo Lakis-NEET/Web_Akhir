@@ -1,4 +1,3 @@
-details-container {
-  display: flex;
-  flex-direction: row;
+.add-ch-btn:hover {
+  transform: scale(2);
 }
