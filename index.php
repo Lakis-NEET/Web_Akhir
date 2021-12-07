@@ -38,24 +38,58 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
 
     <style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
         }
-    }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        * {
+            font-family: 'Roboto', sans-serif !important;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        a {
+            text-decoration: none;
+            color: #DC3545;
+        }
+
+        a:hover {
+            color: white;
+        }
+
 
     * {
         font-family: 'Roboto', sans-serif !important;
@@ -83,12 +117,14 @@
     body {
         background-color: #000000;
     }
+
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="assets/css/dashboard.css" rel="stylesheet">
     <link href="assets/css/home.css" rel="stylesheet">
+
     <link href="assets/css/form.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="global.css"> -->
 </head>
@@ -96,6 +132,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
+
             <a href="#" class="text-decoration-none"><i
                     class="bi bi-file-earmark-image fs-2 text-white">UnLOad&nbsp;&nbsp;</i></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
@@ -111,14 +148,14 @@
                         <a class="nav-link" href="?page=bookmarks">Bookmarks</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Categories</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="?page=genre">Genre</a></li>
                             <li><a class="dropdown-item" href="?page=author">Author</a></li>
                         </ul>
                     </li>
+
                     <?php if($_SESSION['login']==1){ ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -135,8 +172,7 @@
                     <form class="d-flex" action="" method="get">
                         <input type="text" name="page" value="filter_genre" hidden>
                         <input class="me-2" type="text" name="keyword" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-light btn-outline-secondary" type="submit"><i
-                                class="bi bi-search"></i></button>
+                        <button class="btn btn-light btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
             </div>
@@ -180,7 +216,7 @@
         //Connect dengan database
         require_once "Libraries/connect.php";
         require_once "Libraries/fungsi.php";
-        
+
         // kalau index page tidak ditemukan
         if (isset($_GET['page']) == false) {
             //page tidak ditemukan

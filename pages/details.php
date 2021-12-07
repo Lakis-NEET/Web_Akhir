@@ -9,6 +9,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
+
 if(!isset($_SESSION['login'])){
     $_SESSION['login']=3;
 }
@@ -51,17 +52,16 @@ $author = mysqli_fetch_assoc($thor);
 $author["author_name"];
 
 
-$sql5=mysqli_query($connection, "SELECT * FROM chapter WHERE comic_id= $id");
+$sql5 = mysqli_query($connection, "SELECT * FROM chapter WHERE comic_id= $id");
 
-$files =glob("assets/comic_read/$id/*", GLOB_ONLYDIR);
+$files = glob("assets/comic_read/$id/*", GLOB_ONLYDIR);
 ?>
-<?php if($_SESSION['login']==1){ ?>
-<a href="?page=edit_comic&&id=<?php echo $id ?>">Edit</a>
-<a href="?page=delete_comic&&id=<?php echo $id ?>&&gambar=<?php echo $comic['comic_cover'] ?>">Delete</a>
+<?php if ($_SESSION['login'] == 1) { ?>
+    <a href="?page=edit_comic&&id=<?php echo $id ?>">Edit</a>
+    <a href="?page=delete_comic&&id=<?php echo $id ?>&&gambar=<?php echo $comic['comic_cover'] ?>">Delete</a>
 
 <?php } ?>
-<img src="<?php echo $comic['comic_cover'] ?>" alt=""
-    style="position: absolute; z-index:-99; top:0;left:0;filter: blur(8px) brightness(50%); width: 100%;">
+<img src="<?php echo $comic['comic_cover'] ?>" alt="" style="position: absolute; z-index:-99; top:0;left:0;filter: blur(8px) brightness(50%); width: 100%;">
 <!-- <div style="width: 100%; height:100%; position:absolute;left:0;top:0; z-index:-98;" class="bg-dark"></div> -->
 <div class="text-light" style="
 display: flex;
@@ -80,7 +80,7 @@ column-gap:20px;
         </div>
         <form action="?page=save_bookmark&&id=<?php echo $id ?>" method="post">
             <input type="text" name="ismarked" value="<?php echo $ismarked ?>" hidden>
-            <button type="submit" class="btn btn-danger" name="submit"><?php echo $isbooked ?></button>
+            <button type="submit" class="btn btn-danger" name="submit" style="width: 100%;"><?php echo $isbooked ?></button>
         </form>
         <div class="text-white fw-bold text-center"><?php echo $jml ?> people bookmarked</div>
         <div class="p-1 bg-dark rounded-1">
@@ -91,7 +91,7 @@ column-gap:20px;
         </div>
         <div class="p-1 bg-dark rounded-1">
             <div class="d-flex justify-content-between mb-1 text-secondary" style="font-size:x-small;">
-                <div>Status</div>
+                <div class="fw-bolder">Status</div>
                 <div><?php if ($comic['comic_status']) {
                             echo "Ongoing";
                         } else {
@@ -125,8 +125,8 @@ column-gap:20px;
             <div class="d-flex" style="column-gap: 5px; font-size:x-small;">
                 <?php
                 while ($genres = mysqli_fetch_assoc($gen)) { ?>
-                <a class="p-1 text-decoration-none text-light rounded-1" style=" background-color: #000000;"
-                    href="?page=filter_genre&&genre_id=<?php echo $genres["genre_id"] ?>"><?php echo $genres['genre_id'] ?></a>
+                    <a class="p-1 text-decoration-none text-light rounded-1 bg-danger style=" background-color: #000000;" href="?page=filter_genre&&genre_id=<?php echo $genres["genre_id"] ?>"><?php echo $genres['genre_id'] ?></a>
+
                 <?php } ?>
             </div>
             <br>
@@ -140,6 +140,7 @@ column-gap:20px;
         <div class="bg-dark text-white rounded-1 shadow">
             <div class="d-flex bg-danger fs-5 justify-content-between px-2 py-1">
                 <div>Chapters</div>
+
                 <?php if($_SESSION['login']==1){ ?>
                 <div><a href="?page=add_chapter&&id=<?php echo $id ?>"><i
                             class="bi bi-plus-circle-fill fs-5 text-light"></i></a></div>
@@ -149,17 +150,23 @@ column-gap:20px;
 
             <div class="d-flex p-2 flex-wrap justify-content-around" style="height: 12rem; overflow:auto">
                 <?php
-                while ($chap=mysqli_fetch_assoc($sql5)) {
-                    $value=str_replace("assets/comic_read/$id/ch", '', $chap['chapter_id']);  
+                while ($chap = mysqli_fetch_assoc($sql5)) {
+                    $value = str_replace("assets/comic_read/$id/ch", '', $chap['chapter_id']);
+
                 ?>
                 <div style=" width:9rem; border-radius:0.2em; height:3.5rem;"
                     class="d-flex p-1 mb-2 border border-1 border-light">
                     <div style="width: 90%;">
 
-                        <a style="font-size: xx-small;"
-                            href="?page=read_comic&&id=<?php echo $id ?>&&ch=<?php echo $value ?>">Chapter
-                            <?php echo $value ?></a>
-                        <div style="font-size: xx-small; color:gray"><?php echo $chap['added_at'] ?></div>
+                            <a style="font-size: xx-small;" href="?page=read_comic&&id=<?php echo $id ?>&&ch=<?php echo $value ?>">Chapter
+                                <?php echo $value ?></a>
+                            <div style="font-size: xx-small; color:gray"><?php echo $chap['added_at'] ?></div>
+                        </div>
+                        <?php if ($_SESSION['login'] == 1) { ?>
+                            <div>
+                                <a href="?page=delete_chapter&&id=<?php echo $id ?>&&chapter=<?php echo $value ?>"><i class="bi bi-trash-fill"></i></a>
+                            </div>
+                        <?php } ?>
                     </div>
                     <?php if($_SESSION['login']==1){ ?>
                     <div>
