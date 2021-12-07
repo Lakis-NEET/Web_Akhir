@@ -29,12 +29,14 @@ while($bookmark=mysqli_fetch_assoc($result)){
     <?php
     foreach ($comic_mark as $comic_list) {
     ?>
-    <div class="card p-2 card-popular card-home" style="background-color:red;">
-        <img src="<?php echo $comic_list["comic_cover"] ?>" class="card-img-top" alt="...">
-        <div class="card-body">
-            <a class="" style="font-size: 0.8rem;"
-                href="?page=details&id=<?php echo $comic_list['comic_id'] ?>"><?php echo $comic_list["comic_title"] ?></a>
-            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+    <div class="col-auto mb-2">
+        <div class="card p-1 card-latest bg-dark" style="height: 15rem;overflow:hidden;">
+            <img src="<?php echo $comic_list['comic_cover'] ?>" class="card-img-top border border-1"
+                style="height:12rem;" alt="...">
+            <div class="">
+                <a class=""
+                    href="?page=details&id=<?php echo $comic_list['comic_id'] ?>"><?php echo $comic_list['comic_title'] ?></a>
+            </div>
         </div>
     </div>
     <?php } ?>
