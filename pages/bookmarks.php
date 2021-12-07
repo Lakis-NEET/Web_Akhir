@@ -3,6 +3,11 @@ if(defined('GELANG')===false){
     //tidak memiliki gelang
     die("Anda tidak berhak membuka file ini secara langsung");
 }
+
+if($_SESSION['login']==3){
+    redirect("?page=login");
+}
+
 $id=$_SESSION['id'];
 $comic_mark=[];
 $sql="SELECT * FROM bookmarks WHERE user_id = $id";
@@ -17,14 +22,14 @@ while($bookmark=mysqli_fetch_assoc($result)){
 ?>
 
 <div class="row pt-3 pb-2 mb-3 border-bottom">
-    <h2 class=""> BOOKMARK </h2>
+    <h2 class="text-white"> BOOKMARK </h2>
 </div>
 <div class="d-flex flex-row flex-wrap justify-content-around">
     <!-- row-cols-xl-3 row-cols-md-2 row-cols-sm-1 -->
     <?php
     foreach ($comic_mark as $comic_list) {
     ?>
-    <div class="card p-2 card-popular card-home">
+    <div class="card p-2 card-popular card-home" style="background-color:red;">
         <img src="<?php echo $comic_list["comic_cover"] ?>" class="card-img-top" alt="...">
         <div class="card-body">
             <a class="" style="font-size: 0.8rem;"

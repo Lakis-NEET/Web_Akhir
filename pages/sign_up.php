@@ -30,26 +30,44 @@ if (isset($_POST['submit'])){
 }
 ?>
 
-<form action="" method="post">
-    <div>
-        <label>Username</label>
-        <label>:</label>
-        <input type="text" name="username" />
-    </div>
-    <div>
-        <label>Email</label>
-        <label>:</label>
-        <input type="email" name="email" />
-    </div>
-    <div>
-        <label>Password</label>
-        <label>:</label>
-        <input type="password" name="password" />
-    </div>
-    <div>
-        <label>Confirm Password</label>
-        <label>:</label>
-        <input type="password" name="password1" />
-    </div>
-    <input type="submit" value="Sign Up" name="submit" />
-</form>
+
+<div class="container">
+    <form action="" method="post">
+        <div class="row">
+            <div class="col-25">
+                <label>Username</label>
+            </div>
+            <div class="col-75">
+                <input type="text" name="username" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label>Email</label>
+            </div>
+            <div class="col-75">
+                <input type="email" name="email" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label>Password</label>
+            </div>
+            <div class="col-75">
+                <input type="password" name="password" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label>Confirm Password</label>
+            </div>
+            <div class="col-75">
+                <input type="password" name="password1" />
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <input type="submit" value="Sign Up" name="submit" />
+        </div>
+    </form>
+</div>
