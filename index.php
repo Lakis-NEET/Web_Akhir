@@ -146,79 +146,79 @@ if ($_SESSION['login'] == 3) {
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
 
     <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
         }
+    }
 
-        * {
-            font-family: 'Roboto', sans-serif !important;
-        }
+    * {
+        font-family: 'Roboto', sans-serif !important;
+    }
 
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
 
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
 
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
 
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 
-        a {
-            text-decoration: none;
-            color: #DC3545;
-        }
+    a {
+        text-decoration: none;
+        color: #DC3545;
+    }
 
-        a:hover {
-            color: white;
-        }
+    a:hover {
+        color: white;
+    }
 
 
-        * {
-            font-family: 'Roboto', sans-serif !important;
-        }
+    * {
+        font-family: 'Roboto', sans-serif !important;
+    }
 
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
 
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
 
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
 
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 
-        body {
-            background-color: #000000;
-        }
+    body {
+        background-color: #000000;
+    }
     </style>
 
 
@@ -234,8 +234,10 @@ if ($_SESSION['login'] == 3) {
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
 
-            <a href="#" class="text-decoration-none"><i class="bi bi-file-earmark-image fs-2 text-white">UnLOad&nbsp;&nbsp;</i></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <a href="#" class="text-decoration-none"><i
+                    class="bi bi-file-earmark-image fs-2 text-white">UnLOad&nbsp;&nbsp;</i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -247,7 +249,8 @@ if ($_SESSION['login'] == 3) {
                         <a class="nav-link" href="?page=bookmarks">Bookmarks</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             Categories</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="?page=genre">Genre</a></li>
@@ -256,21 +259,23 @@ if ($_SESSION['login'] == 3) {
                     </li>
 
                     <?php if ($_SESSION['login'] == 1) { ?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Add</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" aria-current="page" href="?page=add_author">Author</a></li>
-                                <li><a class="dropdown-item" aria-current="page" href="?page=add_comic">Comic</a></li>
-                            </ul>
-                        </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Add</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" aria-current="page" href="?page=add_author">Author</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="?page=add_comic">Comic</a></li>
+                        </ul>
+                    </li>
                     <?php } ?>
                 </ul>
                 <div class="search-container">
                     <form class="d-flex" action="" method="get">
                         <input type="text" name="page" value="filter_genre" hidden>
                         <input class="me-2" type="text" name="keyword" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-light btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+                        <button class="btn btn-light btn-outline-secondary" type="submit"><i
+                                class="bi bi-search"></i></button>
                     </form>
                 </div>
             </div>
@@ -279,27 +284,32 @@ if ($_SESSION['login'] == 3) {
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <div class="container-fluid">
             <ul class="navbar-nav me-auto mb-2">
+                <?php if ($_SESSION['login'] == 1) { ?>
                 <li class="nav-item">
+                    <a href="?page=chart" class="text-white">Chart</a>
+                    <a href="?page=comic_pdf" class="text-white">Print PDF</a>
                 </li>
+                <?php } ?>
             </ul>
             <?php if ($_SESSION['login'] != 3) { ?>
-                <div class="btn-group dropstart">
-                    <a class="dropdown-toggle fs-5 text-white" style="text-decoration:none" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
-                        <?php echo $_SESSION['username']; ?>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="nav-link active text-white fs-6" aria-current="page" href="?page=logout">Logout</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="btn-group dropstart">
+                <a class="dropdown-toggle fs-5 text-white" style="text-decoration:none" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle"></i>
+                    <?php echo $_SESSION['username']; ?>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="nav-link active text-white fs-6" aria-current="page" href="?page=logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
             <?php } else { ?>
-                <span>
-                    <a class="nav-link active text-white" aria-current="page" href="?page=login">Login</a>
-                </span>
-                <span>
-                    <a class="nav-link active text-white" aria-current="page" href="?page=sign_up">Sign Up</a>
-                </span>
+            <span>
+                <a class="nav-link active text-white" aria-current="page" href="?page=login">Login</a>
+            </span>
+            <span>
+                <a class="nav-link active text-white" aria-current="page" href="?page=sign_up">Sign Up</a>
+            </span>
             <?php } ?>
         </div>
     </nav>
@@ -317,8 +327,6 @@ if ($_SESSION['login'] == 3) {
         if (isset($_GET['page']) == false) {
             //page tidak ditemukan
             $halaman = "pages/home";
-        } else if (isset($_GET['page']) == 'comic_pdf') {
-            $halaman = "pages/home";
         } else {
             //jika page ditemukan/ada
             $halaman = "pages/" . $_GET['page'];
@@ -327,6 +335,12 @@ if ($_SESSION['login'] == 3) {
             if (file_exists($halaman . ".php") == false) {
                 //jika file tidak ada diarahkan ke mana
                 $halaman = "pages/404";
+                if ($_GET['page'] == 'comic_pdf') {
+                    $halaman = "pages/home";
+                }
+                else{
+                    $halaman = "pages/404";
+                }
             }
         }
         include $halaman . ".php";

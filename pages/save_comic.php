@@ -15,7 +15,7 @@ $comic_genre = $_POST['genre'];
 $comic_release = $_POST['release_date'];
 
 //menyiapkan data tambahan
-$now=date("Y-m-d H:i:s");
+$now=date("Y-m-d");
 
 //data yang akan disimpan
 $data = [
@@ -23,10 +23,12 @@ $data = [
     'comic_cover'           => upload(),
     'comic_description'     => $comic_description,
     'comic_author'          => $comic_author,
+    'comic_score'           => 0,
+    'comic_content_id'      => 0,
     'comic_release'         => $comic_release,
     'added_at'              => $now,
     'edited_at'             => $now,
-    'comic_status'          => "1"
+    'comic_status'          => 1
 ];
 
 //Insert data
@@ -91,5 +93,6 @@ if (file_exists($target_file)) {
   }
   return false;
 }
+
 redirect('?page=home');
 ?>
