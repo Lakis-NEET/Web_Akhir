@@ -1,11 +1,113 @@
-<?php session_start(); 
-        if(!isset($_SESSION['login'])){
-            $_SESSION['login']=3;
+<?php
+session_start();
+require_once "Libraries/connect.php";
+require('libraries/fpdf.php');
+class PDF extends FPDF
+{
+    // Load data
+    function LoadData($file)
+    {
+        // Read file lines
+        $lines = file($file);
+        $data = array();
+        foreach ($lines as $line)
+            $data[] = explode(';', trim($line));
+        return $data;
+    }
+
+    // Simple table
+    function BasicTable($header, $data)
+    {
+        // Header
+        foreach ($header as $col)
+            $this->Cell(40, 7, $col, 1);
+        $this->Ln();
+        // Data
+        foreach ($data as $row) {
+            foreach ($row as $col)
+                $this->Cell(40, 6, $col, 1);
+            $this->Ln();
         }
-        if($_SESSION['login']==3){
-            $_SESSION['id']="Blocked";
-            $_SESSION['username']="Blocked";
+    }
+
+    // Better table
+    function ImprovedTable($header, $data)
+    {
+        // Column widths
+        $w = array(40, 35, 40, 45);
+        // Header
+        for ($i = 0; $i < count($header); $i++)
+            $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C');
+        $this->Ln();
+        // Data
+        foreach ($data as $row) {
+            $this->Cell($w[0], 6, $row[0], 'LR');
+            $this->Cell($w[1], 6, $row[1], 'LR');
+            $this->Cell($w[2], 6, number_format($row[2]), 'LR', 0, 'R');
+            $this->Cell($w[3], 6, number_format($row[3]), 'LR', 0, 'R');
+            $this->Ln();
         }
+        // Closing line
+        $this->Cell(array_sum($w), 0, '', 'T');
+    }
+
+    // Colored table
+    function FancyTable($header, $data)
+    {
+        // Colors, line width and bold font
+        $this->SetFillColor(255, 0, 0);
+        $this->SetTextColor(255);
+        $this->SetDrawColor(128, 0, 0);
+        $this->SetLineWidth(.3);
+        $this->SetFont('', 'B');
+        // Header
+        $w = array(70, 80, 40);
+        for ($i = 0; $i < count($header); $i++)
+            $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
+        $this->Ln();
+        // Color and font restoration
+        $this->SetFillColor(224, 235, 255);
+        $this->SetTextColor(0);
+        $this->SetFont('');
+        // Data
+        $fill = false;
+        while ($row = mysqli_fetch_assoc($data)) {
+            $this->Cell($w[0], 6, $row['comic_title'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[1], 6, $row['comic_description'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[2], 6, $row['comic_release'], 'LR', 0, 'R', $fill);
+            $this->Ln();
+            $fill = !$fill;
+        }
+        // Closing line
+        $this->Cell(array_sum($w), 0, '', 'T');
+    }
+}
+if (isset($_GET["page"])) {
+    if ($_GET["page"] == 'comic_pdf') {
+        $pdf = new PDF();
+        $header = array('Title', 'Description', 'Release Date');
+        // $data = $pdf->LoadData('libraries/countries.txt');
+        $results = mysqli_query($connection, "SELECT comic_title,comic_description,comic_release FROM comic_list");
+        // $data = mysqli_fetch_row($results);
+        // var_dump($data);
+        // die;
+        $pdf->SetFont('Arial', '', 14);
+        // $pdf->AddPage();
+        // $pdf->BasicTable($header, $data);
+        // $pdf->AddPage();
+        // $pdf->ImprovedTable($header, $data);
+        $pdf->AddPage();
+        $pdf->FancyTable($header, $results);
+        $pdf->Output();
+    }
+}
+if (!isset($_SESSION['login'])) {
+    $_SESSION['login'] = 3;
+}
+if ($_SESSION['login'] == 3) {
+    $_SESSION['id'] = "Blocked";
+    $_SESSION['username'] = "Blocked";
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -91,33 +193,32 @@
         }
 
 
-    * {
-        font-family: 'Roboto', sans-serif !important;
-    }
+        * {
+            font-family: 'Roboto', sans-serif !important;
+        }
 
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #888;
-    }
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
 
-    body {
-        background-color: #000000;
-    }
-
+        body {
+            background-color: #000000;
+        }
     </style>
 
 
@@ -133,10 +234,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
 
-            <a href="#" class="text-decoration-none"><i
-                    class="bi bi-file-earmark-image fs-2 text-white">UnLOad&nbsp;&nbsp;</i></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <a href="#" class="text-decoration-none"><i class="bi bi-file-earmark-image fs-2 text-white">UnLOad&nbsp;&nbsp;</i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -156,17 +255,16 @@
                         </ul>
                     </li>
 
-                    <?php if($_SESSION['login']==1){ ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Add</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" aria-current="page" href="?page=add_author">Author</a></li>
-                            <li><a class="dropdown-item" aria-current="page" href="?page=add_comic">Comic</a></li>
-                        </ul>
-                    </li>
-                    <?php }?>
+                    <?php if ($_SESSION['login'] == 1) { ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Add</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" aria-current="page" href="?page=add_author">Author</a></li>
+                                <li><a class="dropdown-item" aria-current="page" href="?page=add_comic">Comic</a></li>
+                            </ul>
+                        </li>
+                    <?php } ?>
                 </ul>
                 <div class="search-container">
                     <form class="d-flex" action="" method="get">
@@ -184,25 +282,24 @@
                 <li class="nav-item">
                 </li>
             </ul>
-            <?php if($_SESSION['login']!=3){ ?>
-            <div class="btn-group dropstart">
-                <a class="dropdown-toggle fs-5 text-white" style="text-decoration:none" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="bi bi-person-circle"></i>
-                    <?php echo $_SESSION['username'];?>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="nav-link active text-white fs-6" aria-current="page" href="?page=logout">Logout</a>
-                    </li>
-                </ul>
-            </div>
-            <?php }else{ ?>
-            <span>
-                <a class="nav-link active text-white" aria-current="page" href="?page=login">Login</a>
-            </span>
-            <span>
-                <a class="nav-link active text-white" aria-current="page" href="?page=sign_up">Sign Up</a>
-            </span>
+            <?php if ($_SESSION['login'] != 3) { ?>
+                <div class="btn-group dropstart">
+                    <a class="dropdown-toggle fs-5 text-white" style="text-decoration:none" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle"></i>
+                        <?php echo $_SESSION['username']; ?>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="nav-link active text-white fs-6" aria-current="page" href="?page=logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            <?php } else { ?>
+                <span>
+                    <a class="nav-link active text-white" aria-current="page" href="?page=login">Login</a>
+                </span>
+                <span>
+                    <a class="nav-link active text-white" aria-current="page" href="?page=sign_up">Sign Up</a>
+                </span>
             <?php } ?>
         </div>
     </nav>
@@ -214,12 +311,13 @@
         define("GELANG", true);
 
         //Connect dengan database
-        require_once "Libraries/connect.php";
         require_once "Libraries/fungsi.php";
 
         // kalau index page tidak ditemukan
         if (isset($_GET['page']) == false) {
             //page tidak ditemukan
+            $halaman = "pages/home";
+        } else if (isset($_GET['page']) == 'comic_pdf') {
             $halaman = "pages/home";
         } else {
             //jika page ditemukan/ada
