@@ -19,8 +19,10 @@ if(isset($_POST['ismarked'])){
     echo $mark;
     if($mark==1){
         mysqli_query($connection, "DELETE FROM bookmarks WHERE comic_id = $id AND user_id = $user_id");
+        mysqli_query($connection, "UPDATE comic_list SET bookmark_count = bookmark_count - 1 WHERE comic_id = $id");
         echo "dihapus";
     }else if($mark==0){
+        mysqli_query($connection, "UPDATE comic_list SET bookmark_count = bookmark_count + 1 WHERE comic_id = $id");
         $data = [
             'comic_id'              => $id,
             'user_id'               => $user_id

@@ -39,7 +39,6 @@ else if(isset($_GET['author_id'])){
 }
 ?>
 
-
 <div class="row pt-3 pb-2 mb-3 border-bottom">
     <h2><a class="text-white" style="text-decoration:none;"><?php echo $result_text ?></a></h2>
 </div>
@@ -60,3 +59,5 @@ else if(isset($_GET['author_id'])){
     </div>
     <?php } ?>
 </div>
+
+<?php include 'popular.php'; ?>

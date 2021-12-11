@@ -25,6 +25,7 @@ $data = [
     'comic_author'          => $comic_author,
     'comic_score'           => 0,
     'comic_content_id'      => 0,
+    'bookmark_count'        => 0,
     'comic_release'         => $comic_release,
     'added_at'              => $now,
     'edited_at'             => $now,

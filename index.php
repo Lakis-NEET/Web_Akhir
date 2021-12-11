@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once "Libraries/connect.php";
+require_once "libraries/connect.php";
+require_once "libraries/fungsi.php";
 require('libraries/fpdf.php');
 class PDF extends FPDF
 {
@@ -225,7 +226,6 @@ if ($_SESSION['login'] == 3) {
     <!-- Custom styles for this template -->
     <link href="assets/css/dashboard.css" rel="stylesheet">
     <link href="assets/css/home.css" rel="stylesheet">
-
     <link href="assets/css/form.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="global.css"> -->
 </head>
@@ -286,8 +286,8 @@ if ($_SESSION['login'] == 3) {
             <ul class="navbar-nav me-auto mb-2">
                 <?php if ($_SESSION['login'] == 1) { ?>
                 <li class="nav-item">
-                    <a href="?page=chart" class="text-white">Chart</a>
-                    <a href="?page=comic_pdf" class="text-white">Print PDF</a>
+                    <a href="?page=chart" class="text-xs text-white btn bg-dark">Chart</a>
+                    <a href="?page=comic_pdf" class="text-xs text-white btn bg-dark">Print PDF</a>
                 </li>
                 <?php } ?>
             </ul>
@@ -319,9 +319,6 @@ if ($_SESSION['login'] == 3) {
         ini_set("display_errors", 1);
 
         define("GELANG", true);
-
-        //Connect dengan database
-        require_once "Libraries/fungsi.php";
 
         // kalau index page tidak ditemukan
         if (isset($_GET['page']) == false) {
